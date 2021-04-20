@@ -8457,6 +8457,8 @@ in
 
   srcml = callPackage ../applications/version-management/srcml { };
 
+  srt-live-server = callPackage ../applications/video/srt-live-server { };
+
   srt-to-vtt-cl = callPackage ../tools/cd-dvd/srt-to-vtt-cl { };
 
   sourcehut = callPackage ../applications/version-management/sourcehut { };
@@ -8672,6 +8674,8 @@ in
   tdns-cli = callPackage ../tools/networking/tdns-cli { };
 
   tea = callPackage ../tools/misc/tea { };
+
+  inherit (nodePackages) teck-programmer;
 
   ted = callPackage ../tools/typesetting/ted { };
 
@@ -20776,6 +20780,8 @@ in
 
   # FIXME: `tcp-wrapper' is actually not OS-specific.
   tcp_wrappers = callPackage ../os-specific/linux/tcp-wrappers { };
+
+  teck-udev-rules = callPackage ../os-specific/linux/teck-udev-rules { };
 
   tiptop = callPackage ../os-specific/linux/tiptop { };
 
