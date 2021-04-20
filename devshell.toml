@@ -50,9 +50,8 @@ fi
 
 # check editorconfig
 if ! editorconfig-checker -- "${all_files[@]}"; then
-  printf "%b\n" \
-    "\nCode is not aligned with .editorconfig" \
-    "Review the output and commit your fixes" >&2
+  echo -e "\nCode is not aligned with .editorconfig
+Review the output and commit your fixes" >&2
   exit 1
 fi
 """
