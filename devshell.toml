@@ -28,7 +28,7 @@ command = "fd --extension nix --exec nix-instantiate --parse --quiet {} >/dev/nu
 enable = true
 pre-commit.text = """
 #!/usr/bin/env bash
-
+set -eou pipefail
 if git rev-parse --verify HEAD >/dev/null 2>&1
 then
   against=HEAD
