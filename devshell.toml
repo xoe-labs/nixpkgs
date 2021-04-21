@@ -13,6 +13,34 @@ package = "editorconfig-checker"
 category = "linters"
 
 [[commands]]
+package = "gitAndTools.gh"
+category = "github"
+
+[[commands]]
+name = "bugs"
+help = "List issues labeled as bugs"
+category = "github"
+command = "gh issue list --label=\"0.kind: bug\""
+
+[[commands]]
+name = "packaging-requests"
+help = "List issues labeled as packaging requests (chill out work)"
+category = "github"
+command = "gh issue list --label=\"0.kind: packaging request\""
+
+[[commands]]
+name = "pr-status"
+help = "Information about relevant PRs"
+category = "github"
+command = "gh pr status"
+
+[[commands]]
+name = "issue-status"
+help = "Information about relevant issues"
+category = "github"
+command = "gh issue status"
+
+[[commands]]
 name = "fmt"
 help = "Check Nix formatting"
 category = "folder tree checks"
