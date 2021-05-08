@@ -161,7 +161,12 @@ rec {
 
             echo -n "$testScript" > $out/test-script
             ${lib.optionalString (!skipLint) ''
-              ${python3Packages.pyflakes}/bin/pyflakes $out/test-script
+              ( # Define the variables
+                echo "def testScript(subtest, start_all, ${lib.concatStringsSep ", " nodeNames}):"
+                sed -e 's/^/    /' -e 's/^    $//' <$out/test-script
+              ) >test-script
+              ${python3Packages.pyflakes}/bin/pyflakes test-script
+              rm test-script
             ''}
 
             ln -s ${testDriver}/bin/nixos-test-driver $out/bin/
