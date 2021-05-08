@@ -162,7 +162,7 @@ rec {
             echo -n "$testScript" > $out/test-script
             ${lib.optionalString (!skipLint) ''
               ( # Define the variables
-                echo "def testScript(subtest, start_all, ${lib.concatStringsSep ", " nodeHostNames}):"
+                echo "def testScript(subtest, start_all, retry, ${lib.concatStringsSep ", " nodeHostNames}):"
                 sed -e 's/^/    /' -e 's/^    $//' <$out/test-script
               ) >test-script
               ${python3Packages.pyflakes}/bin/pyflakes test-script
