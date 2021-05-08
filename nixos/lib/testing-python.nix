@@ -172,7 +172,7 @@ rec {
             echo -n "$testScript" > $out/test-script
             ${lib.optionalString (!skipLint) ''
               PYFLAKES_BUILTINS="$(
-                echo -n ${lib.escapeShellArg (lib.concatStringsSep "," nodeNames)},
+                echo -n ${lib.escapeShellArg (lib.concatStringsSep "," nodeHostNames)},
                 < ${lib.escapeShellArg "${testDriver}/nix-support/driver-exports"}
               )" ${python3Packages.pyflakes}/bin/pyflakes $out/test-script
             ''}
