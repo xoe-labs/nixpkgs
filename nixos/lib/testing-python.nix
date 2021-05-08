@@ -162,7 +162,7 @@ rec {
             echo -n "$testScript" > $out/test-script
             ${lib.optionalString (!skipLint) ''
               ( # Define the variables
-                echo "def testScript(subtest, start_all, ${lib.concatStringsSep ", " nodeNames}):"
+                echo "def testScript(subtest, start_all, ${lib.concatStringsSep ", " nodeHostNames}):"
                 sed -e 's/^/    /' -e 's/^    $//' <$out/test-script
               ) >test-script
               ${python3Packages.pyflakes}/bin/pyflakes test-script
@@ -199,6 +199,8 @@ rec {
       invalidNodeNames = lib.filter
         (node: builtins.match "^[A-z_]([A-z0-9_]+)?$" node == null)
         nodeNames;
+
+      nodeHostNames = map (c: c.config.system.name) (lib.attrValues driver.nodes);
 
     in
     if lib.length invalidNodeNames > 0 then
