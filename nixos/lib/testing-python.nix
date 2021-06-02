@@ -25,7 +25,7 @@ rec {
       name = "nixos-test-driver";
 
       nativeBuildInputs = [ makeWrapper ];
-      buildInputs = [ (python3.withPackages (p: [ p.ptpython p.colorama ])) ];
+      buildInputs = [ (python3.withPackages (p: [ p.ptpython p.colorama p.libtmux ])) ];
       checkInputs = with python3Packages; [ pylint black mypy ];
 
       dontUnpack = true;
@@ -57,7 +57,11 @@ rec {
           # TODO: copy user script part into this file (append)
 
           wrapProgram $out/bin/nixos-test-driver \
-            --prefix PATH : "${lib.makeBinPath [ qemu_pkg vde2 netpbm coreutils ]}" \
+            --prefix PATH : "${lib.makeBinPath [ qemu_pkg vde2 netpbm coreutils byobu ]}" \
+
+          cmd=$(tail -n1 $out/bin/nixos-test-driver)
+          newcmd="${byobu}/bin/byobu new-session -s '${name}' -n 'Main' '$cmd'"
+          sed -i "s|$cmd|$newcmd" $out/bin/nixos-test-driver
 
           install -m 0644 -vD driver-exports $out/nix-support/driver-exports
         '';
