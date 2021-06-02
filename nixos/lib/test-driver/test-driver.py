@@ -11,6 +11,7 @@ import argparse
 import atexit
 import base64
 import codecs
+import libtmux
 import os
 import pathlib
 import ptpython.repl
@@ -930,6 +931,10 @@ def run_tests() -> None:
                 traceback.print_exc()
                 sys.exit(1)
     else:
+        tmux_server = libtmux.Server()
+        tmux_session = tmux_server.find_where(
+            {"session_name": "nixos-test-driver"}
+        )
         ptpython.repl.embed(locals(), globals())
 
     # TODO: Collect coverage data
