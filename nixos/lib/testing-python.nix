@@ -20,9 +20,10 @@ rec {
   mkTestDriver =
     let
       testDriverScript = ./test-driver/test-driver.py;
+      name = "nixos-test-driver";
     in
     qemu_pkg: stdenv.mkDerivation {
-      name = "nixos-test-driver";
+      inherit name;
 
       nativeBuildInputs = [ makeWrapper ];
       buildInputs = [ (python3.withPackages (p: [ p.ptpython p.colorama p.libtmux ])) ];
@@ -61,7 +62,7 @@ rec {
 
           cmd=$(tail -n1 $out/bin/nixos-test-driver)
           newcmd="${byobu}/bin/byobu new-session -s '${name}' -n 'Main' '$cmd'"
-          sed -i "s|$cmd|$newcmd" $out/bin/nixos-test-driver
+          sed -i "s|$cmd|$newcmd|" $out/bin/nixos-test-driver
 
           install -m 0644 -vD driver-exports $out/nix-support/driver-exports
         '';
